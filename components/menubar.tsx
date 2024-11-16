@@ -1,6 +1,7 @@
 import React from "react";
 import {Button} from "./ui/button";
 import {House} from "lucide-react";
+import Profile from "./profile";
 
 const MenuBar = () => {
   return (
@@ -20,7 +21,7 @@ const MenuBar = () => {
         size="icon"
         className="text-white hover:bg-white hover:bg-opacity-20"
       >
-        {/* <Profile /> */}
+        <Profile />
       </Button>
     </div>
   );

@@ -1,9 +1,9 @@
 import React from "react";
 import {Sixtyfour} from "next/font/google";
-import {PlusIcon, User} from "lucide-react";
 
 import {usePrivy} from "@privy-io/react-auth";
 import {Button} from "./ui/button";
+import NewBet from "./new-bet";
 
 export const sixtyfour = Sixtyfour({
   weight: "400",
