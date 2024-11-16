@@ -1,5 +1,6 @@
 import React from "react";
 import MenuBar from "./menubar";
+import Bets from "./bets";
 
 const MainApp = () => {
   return (
@@ -9,7 +10,7 @@ const MainApp = () => {
         <h1 className="text-2xl font-bold mb-6 text-white w-[90%] m-auto">
           Markets
         </h1>
-        {/* <Bets /> */}
+        <Bets />
       </div>
       <MenuBar />
     </div>
