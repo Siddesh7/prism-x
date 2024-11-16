@@ -1,4 +1,6 @@
-import {Plus, Minus, TrendingUp, TrendingDown} from "lucide-react";
+import {Plus, Minus, TrendingUp, TrendingDown, X, Check} from "lucide-react";
+import {Button} from "./ui/button";
+import {Badge} from "./ui/badge";
 
 interface BetCardProps {
   id: number;
@@ -33,16 +35,16 @@ const BetCard: React.FC<BetCardProps> = ({
 }) => {
   const handleIncreaseBet = () => setBetAmountInput(betAmountInput + 1);
   const handleDecreaseBet = () => setBetAmountInput(betAmountInput - 1);
-
+  console.log(betAmountInput);
   return (
     <div className="w-full max-w-sm mx-auto h-[calc(100vh-4rem)] bg-black text-white rounded-xl shadow-lg overflow-hidden">
       <div className="relative h-1/3 w-full">
         <img src={imageUrl} className="w-full h-full object-cover" />
         <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black to-transparent" />
         <div className="absolute bottom-4 left-4 flex items-center">
-          <span className="bg-red-600 text-white text-xs px-2 py-1 rounded-full">
+          <Badge>
             <TimestampDisplay timestamp={betTime.toString()} />
-          </span>
+          </Badge>
         </div>
       </div>
       <div className="p-6 space-y-4">
@@ -52,7 +54,7 @@ const BetCard: React.FC<BetCardProps> = ({
             <div className="flex items-center">
               <TrendingDown className="text-red-500 mr-2" size={20} />
               <p className="text-red-500 text-center font-semibold">
-                {losePercentage}%
+                {losePercentage.toFixed(2)}%
               </p>
             </div>
             <span className="text-red-500">${noTotalAmount}</span>
@@ -61,7 +63,7 @@ const BetCard: React.FC<BetCardProps> = ({
             <div className="flex items-center">
               <TrendingUp className="text-green-500 mr-2" size={20} />
               <p className="text-green-500 text-center font-semibold">
-                {winPercentage}%
+                {winPercentage.toFixed(2)}%
               </p>
             </div>
             <span className="text-green-500 text-center">
@@ -71,11 +73,12 @@ const BetCard: React.FC<BetCardProps> = ({
         </div>
         <div className="flex items-center justify-between mt-4 bg-gray-800 rounded-lg overflow-hidden p-2">
           <button
+            className="bg-primary p-2 rounded-md"
             onClick={handleDecreaseBet}
-            className="bg-red-600 p-2 text-white rounded-lg"
           >
             <Minus size={20} color="white" />
           </button>
+
           <div className="flex flex-row gap-0 bg-gray-800 rounded-lg overflow-hidden">
             <span className="text-white">$</span>
             <input
@@ -88,35 +91,12 @@ const BetCard: React.FC<BetCardProps> = ({
             />
           </div>
           <button
+            className="bg-primary p-2 rounded-md"
             onClick={handleIncreaseBet}
-            className="bg-red-600 p-2 text-white rounded-lg"
           >
             <Plus size={20} color="white" />
           </button>
         </div>
-        {/* <div className="flex justify-around mt-4">
-          <Button
-            variant={"outline"}
-            className="rounded-full bg-red-500 text-white flex flex-row gap-1 hover:bg-red-400"
-            onClick={onNoClick}
-          >
-            <X />
-          </Button>
-          <Button
-            variant={"outline"}
-            onClick={onPassClick}
-            className="rounded-full bg-yellow-300  text-yellow-600 hover:bg-yellow-400 "
-          >
-            Pass
-          </Button>
-          <Button
-            variant={"outline"}
-            onClick={onYesClick}
-            className="rounded-full bg-green-500 text-white flex flex-row gap-1 hover:bg-green-400"
-          >
-            <Check size={24} />
-          </Button>
-        </div> */}
       </div>
     </div>
   );

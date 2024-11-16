@@ -21,6 +21,7 @@ interface Market {
 export default function Bets() {
   const [lastLocation, setLastLocation] = useState("");
   const [betAmount, setBetAmount] = useState(1);
+
   const swiped = (direction: string, market: Market) => {
     setLastLocation(direction);
 
@@ -46,7 +47,7 @@ export default function Bets() {
     isLoading: boolean;
     refetch: () => void;
   };
-  console.log("hishdhs");
+
   const {writeContractAsync} = useWriteContract();
   const placeBet = async (side: boolean, market: Market) => {
     if (!market) {
@@ -56,17 +57,14 @@ export default function Bets() {
     const hash = await writeContractAsync({
       abi: PREDICTION_MARKET_ABI,
       functionName: "placeBet",
-      args: [market.id, side, betAmount * 10 ** 6, address],
+      args: [market.id, side, betAmount * 10 ** 18, address],
       account: privateKeyToAccount(process.env.NEXT_PUBLIC_ADMIN_PK! as any),
       address: PREDICTION_MARKET_ADDRESS,
+      chainId: 13331370345,
     });
+    console.log(hash);
   };
   useEffect(() => {
-    console.log(
-      rawActivePredictions,
-      isActivePredictionsError,
-      isActivePredictionsLoading
-    );
     if (rawActivePredictions) {
       console.log(rawActivePredictions);
       setMarkets(rawActivePredictions as any);
@@ -111,7 +109,9 @@ export default function Bets() {
     };
   };
 
-  // Usage:
+  useEffect(() => {
+    console.log(betAmount);
+  }, [betAmount]);
 
   return (
     <div className="flex flex-wrap relative w-[90%] h-full m-auto">
@@ -137,8 +137,8 @@ export default function Bets() {
               losePercentage={noPercentage}
               imageUrl={market.imageUri}
               betTime={market.bettingEndTime}
-              yesTotalAmount={Number(market.totalYesAmount.toString()) / 1e6}
-              noTotalAmount={Number(market.totalNoAmount.toString()) / 1e6}
+              yesTotalAmount={Number(market.totalYesAmount.toString()) / 1e18}
+              noTotalAmount={Number(market.totalNoAmount.toString()) / 1e18}
               onYesClick={async () => {
                 if (childRefs[index] && childRefs[index].current) {
                   await childRefs[index].current.swipe("right");
@@ -161,7 +161,12 @@ export default function Bets() {
       {lastLocation && (
         <div className="absolute bottom-40 bg-slate-200 rounded-full px-4 py-2 text-black left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <h2 className="text-black">
-            You bet {lastLocation === "right" ? "yes" : "no"}
+            You bet{" "}
+            {lastLocation === "right"
+              ? "yes"
+              : lastLocation === "left"
+              ? "left"
+              : "up, passing"}
           </h2>
         </div>
       )}

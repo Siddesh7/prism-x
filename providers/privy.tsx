@@ -24,14 +24,13 @@ export const prism = {
 
 export const privyConfig: PrivyClientConfig = {
   defaultChain: prism,
-  supportedChains: [prism, arbitrumSepolia],
+  supportedChains: [prism],
 };
 
 export const config = createConfig({
-  chains: [prism, arbitrumSepolia],
+  chains: [prism],
   transports: {
     [prism.id]: http("http://localhost:8449"),
-    [arbitrumSepolia.id]: http(),
   },
 });
 const queryClient = new QueryClient();

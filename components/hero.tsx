@@ -9,8 +9,7 @@ const Hero = () => {
     <div
       className="flex flex-1 w-screen items-center justify-center relative overflow-hidden"
       style={{
-        background:
-          "radial-gradient(circle, rgba(127,29,29,1) 0%, rgba(0,0,0,1) 100%)",
+        background: "radial-gradient(circle, #7f501d 0%, rgba(0,0,0,1) 100%)",
       }}
     >
       <div className="absolute inset-0 flex items-center justify-center">
