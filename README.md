@@ -1,6 +1,4 @@
-<div align="start">
-  <img src="./public//logo.png" alt="Prediction Marketplace Logo" width="200">
-</div>
+<img width="119" alt="Screenshot 2024-11-17 at 8 30 34 AM" src="https://github.com/user-attachments/assets/7b45e094-dfa8-4e7d-ab89-4a94eb25f621">
 
 A seamless, Tinder-like prediction marketplace built as an L3 chain on top of Arbitrum and Avail DA. PrismX enables a clean tinder-like swipe experience to remove the web3 friction whatsover and make it more gaamified for a social betting marketplace.
 
