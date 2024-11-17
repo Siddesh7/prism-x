@@ -50,5 +50,9 @@ A seamless, Tinder-like prediction marketplace built as an L3 chain on top of Ar
 - Risk assessment for different market types
 
 ## 📱 Live Deployment
+### Prism Agents
+  - https://github.com/Siddesh7/agentic-prism
+### Prism Chain Contract:
+  - 0xcDd6Ec9Fd11E93AF0BAE13711a6BB5A83627dd94
 ### Morph Mainnet Contract:
   - 0x4918238263f3cd815f75370e0114cfd8267dfe59
