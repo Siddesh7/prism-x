@@ -6,6 +6,7 @@ import {
   useBalance,
   useReadContract,
   useSimulateContract,
+  useChainId,
 } from "wagmi";
 import {erc20Abi, parseUnits} from "viem";
 import {Button} from "@/components/ui/button";
@@ -26,7 +27,12 @@ import {
   AlertCircle,
   DollarSign,
 } from "lucide-react";
-import {PREDICTION_MARKET_ADDRESS, USDC_ADDRESS} from "@/constants";
+import {
+  MORPH_PREDICTION_MARKET_ADDRESS,
+  MORPH_USDC_ADDRESS,
+  PREDICTION_MARKET_ADDRESS,
+  USDC_ADDRESS,
+} from "@/constants";
 import PREDICTION_MARKET_ABI from "@/constants/abi.json";
 import DepositButton from "./deposit-button";
 import ApproveButton from "./approve-button";
@@ -57,22 +63,32 @@ export const Balance: React.FC<DepositProps> = ({className, onSuccess}) => {
   });
 
   const {address} = useAccount();
-
+  const chainid = useChainId();
   const {data: usdcBalance, refetch: refetchUsdcBalance} = useBalance({
     address,
-    token: USDC_ADDRESS,
+    token: chainid === 2810 ? MORPH_USDC_ADDRESS : USDC_ADDRESS,
   });
 
   const {data: allowance, refetch: refetchAllowance} = useReadContract({
-    address: USDC_ADDRESS,
+    address: chainid === 2810 ? MORPH_USDC_ADDRESS : USDC_ADDRESS,
     abi: erc20Abi,
     functionName: "allowance",
-    args: address ? [address, PREDICTION_MARKET_ADDRESS] : undefined,
+    args: address
+      ? [
+          address,
+          chainid === 2810
+            ? MORPH_PREDICTION_MARKET_ADDRESS
+            : PREDICTION_MARKET_ADDRESS,
+        ]
+      : undefined,
   });
 
   const {data: contractBalance, refetch: refetchContractBalance} =
     useReadContract({
-      address: PREDICTION_MARKET_ADDRESS,
+      address:
+        chainid === 2810
+          ? MORPH_PREDICTION_MARKET_ADDRESS
+          : PREDICTION_MARKET_ADDRESS,
       abi: PREDICTION_MARKET_ABI,
       functionName: "getBalance",
       account: address,

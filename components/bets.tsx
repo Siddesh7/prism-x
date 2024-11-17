@@ -1,8 +1,11 @@
 import React, {useEffect, useMemo, useState} from "react";
 import TinderCard from "react-tinder-card";
-import {useAccount, useReadContract, useWriteContract} from "wagmi";
+import {useAccount, useReadContract, useWriteContract,useChainId} from "wagmi";
 import PREDICTION_MARKET_ABI from "@/constants/abi.json";
-import {PREDICTION_MARKET_ADDRESS} from "@/constants";
+import {
+  MORPH_PREDICTION_MARKET_ADDRESS,
+  PREDICTION_MARKET_ADDRESS,
+} from "@/constants";
 import {privateKeyToAccount} from "viem/accounts";
 import BetCard from "./bet-card";
 interface Market {
@@ -31,16 +34,20 @@ export default function Bets() {
 
   const [markets, setMarkets] = useState<Market[]>([]);
   const {address} = useAccount();
+  const chainid = useChainId();
   const {
     data: rawActivePredictions,
     isError: isActivePredictionsError,
     isLoading: isActivePredictionsLoading,
     refetch: refetchActive,
   } = useReadContract({
-    address: PREDICTION_MARKET_ADDRESS,
+    address:
+      chainid === 2810
+        ? MORPH_PREDICTION_MARKET_ADDRESS
+        : PREDICTION_MARKET_ADDRESS,
     abi: PREDICTION_MARKET_ABI,
     functionName: "getActivePredictions",
-    chainId: 13331370345,
+    // chainId: 13331370345,
   }) as {
     data: unknown[] | undefined;
     isError: boolean;
@@ -59,8 +66,11 @@ export default function Bets() {
       functionName: "placeBet",
       args: [market.id, side, betAmount * 10 ** 18, address],
       account: privateKeyToAccount(process.env.NEXT_PUBLIC_ADMIN_PK! as any),
-      address: PREDICTION_MARKET_ADDRESS,
-      chainId: 13331370345,
+      address:
+        chainid === 2810
+          ? MORPH_PREDICTION_MARKET_ADDRESS
+          : PREDICTION_MARKET_ADDRESS,
+      // chainId: 13331370345,
     });
     console.log(hash);
   };

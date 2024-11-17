@@ -1,7 +1,14 @@
-import {PREDICTION_MARKET_ADDRESS, USDC_ADDRESS} from "@/constants";
+import {
+  MORPH_PREDICTION_MARKET_ADDRESS,
+  PREDICTION_MARKET_ADDRESS,
+} from "@/constants";
 import React, {useEffect, useState} from "react";
 import {parseUnits} from "viem";
-import {useWaitForTransactionReceipt, useWriteContract} from "wagmi";
+import {
+  useChainId,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 import PREDICTION_MARKET_ABI from "@/constants/abi.json";
 import {baseSepolia} from "viem/chains";
 import {Button} from "./button";
@@ -20,6 +27,7 @@ const DepositButton = ({
   const {data, isSuccess, isLoading, isError} = useWaitForTransactionReceipt({
     hash,
   });
+  const chainid = useChainId();
 
   const depositHandler = async () => {
     try {
@@ -28,7 +36,10 @@ const DepositButton = ({
         abi: PREDICTION_MARKET_ABI,
         functionName: "deposit",
         args: [parsedAmount],
-        address: PREDICTION_MARKET_ADDRESS,
+        address:
+          chainid === 2810
+            ? MORPH_PREDICTION_MARKET_ADDRESS
+            : PREDICTION_MARKET_ADDRESS,
         chain: baseSepolia,
       });
 

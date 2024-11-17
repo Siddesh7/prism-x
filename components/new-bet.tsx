@@ -1,6 +1,6 @@
 import {useState} from "react";
-import {useWaitForTransactionReceipt, useWriteContract} from "wagmi";
-import {PREDICTION_MARKET_ADDRESS} from "@/constants";
+import {useChainId, useWaitForTransactionReceipt, useWriteContract} from "wagmi";
+import {MORPH_PREDICTION_MARKET_ADDRESS, PREDICTION_MARKET_ADDRESS} from "@/constants";
 import PREDICTION_MARKET_ABI from "@/constants/abi.json";
 import {
   Sheet,
@@ -39,6 +39,7 @@ const NewBet = () => {
     bettingDuration: 24,
     resolutionDuration: 72,
   });
+  const chainid=useChainId()
 
   const hoursToUnixSeconds = (hours: number): number => {
     const SECONDS_PER_HOUR = 3600;
@@ -82,7 +83,10 @@ const NewBet = () => {
         hoursToUnixSeconds(formData.bettingDuration),
         hoursToUnixSeconds(formData.resolutionDuration),
       ],
-      address: PREDICTION_MARKET_ADDRESS,
+      address:
+        chainid === 2810
+          ? MORPH_PREDICTION_MARKET_ADDRESS
+          : PREDICTION_MARKET_ADDRESS,
     });
     setHash(hash);
   };

@@ -1,6 +1,9 @@
-import {PREDICTION_MARKET_ADDRESS} from "@/constants";
+import {
+  MORPH_PREDICTION_MARKET_ADDRESS,
+  PREDICTION_MARKET_ADDRESS,
+} from "@/constants";
 import React, {useEffect, useState} from "react";
-import {useAccount, useReadContract} from "wagmi";
+import {useAccount, useChainId, useReadContract} from "wagmi";
 import PREDICTION_MARKET_ABI from "@/constants/abi.json";
 import Image from "next/image";
 import {Card, CardContent, CardTitle} from "./ui/card";
@@ -10,8 +13,12 @@ import {TimestampDisplay} from "./profile";
 const CreatedBets = () => {
   const [userCreatedBets, setUserCreatedBets] = useState<any>();
   const {address} = useAccount();
+  const chainid = useChainId();
   const {data: userBets, isError} = useReadContract({
-    address: PREDICTION_MARKET_ADDRESS,
+    address:
+      chainid === 2810
+        ? MORPH_PREDICTION_MARKET_ADDRESS
+        : PREDICTION_MARKET_ADDRESS,
     abi: PREDICTION_MARKET_ABI,
     functionName: "getUserCreatedPredictions",
     account: address,

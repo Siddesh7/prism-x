@@ -2,10 +2,9 @@
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 import {PrivyProvider} from "@privy-io/react-auth";
-// Make sure to import these from `@privy-io/wagmi`, not `wagmi`
 import {WagmiProvider, createConfig} from "@privy-io/wagmi";
 
-import {auroraTestnet, aurora, localhost, arbitrumSepolia} from "viem/chains";
+import {morphHolesky} from "viem/chains";
 import {http} from "wagmi";
 
 import type {PrivyClientConfig} from "@privy-io/react-auth";
@@ -24,13 +23,14 @@ export const prism = {
 
 export const privyConfig: PrivyClientConfig = {
   defaultChain: prism,
-  supportedChains: [prism],
+  supportedChains: [prism, morphHolesky],
 };
 
 export const config = createConfig({
-  chains: [prism],
+  chains: [prism, morphHolesky],
   transports: {
     [prism.id]: http("http://localhost:8449"),
+    [morphHolesky.id]: http("https://rpc-holesky.morphl2.io/"),
   },
 });
 const queryClient = new QueryClient();

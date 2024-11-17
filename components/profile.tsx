@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useAccount, useReadContract} from "wagmi";
+import {useAccount, useChainId, useReadContract} from "wagmi";
 
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
@@ -14,7 +14,10 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import {User} from "lucide-react";
-import {PREDICTION_MARKET_ADDRESS, USDC_ADDRESS} from "@/constants";
+import {
+  PREDICTION_MARKET_ADDRESS,
+  MORPH_PREDICTION_MARKET_ADDRESS,
+} from "@/constants";
 import PREDICTION_MARKET_ABI from "@/constants/abi.json";
 import Balance from "./ui/balance";
 import AllPlacedBets from "./all-placed-bets";
@@ -35,10 +38,13 @@ const Profile = () => {
   const [userBalance, setUserBalance] = useState<any>();
 
   const {address} = useAccount();
-
+  const chainid = useChainId();
   const {data: contractBalance, refetch: refetchContractBalance} =
     useReadContract({
-      address: PREDICTION_MARKET_ADDRESS,
+      address:
+        chainid === 2810
+          ? MORPH_PREDICTION_MARKET_ADDRESS
+          : PREDICTION_MARKET_ADDRESS,
       abi: PREDICTION_MARKET_ABI,
       functionName: "getBalance",
       account: address,

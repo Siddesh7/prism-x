@@ -4,6 +4,7 @@ import {Sixtyfour} from "next/font/google";
 import {usePrivy} from "@privy-io/react-auth";
 import {Button} from "./ui/button";
 import NewBet from "./new-bet";
+import SwitchChain from "./switch-chain";
 
 export const sixtyfour = Sixtyfour({
   weight: "400",
@@ -17,6 +18,7 @@ const Header = () => {
       <h2 className={`text-primary text-2xl ${sixtyfour.className}`}>PrismX</h2>
       {authenticated && (
         <div className="flex flex-row gap-2 items-center">
+          <SwitchChain />
           <Button
             asChild
             variant={"outline"}
