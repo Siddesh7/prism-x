@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="start">
+  <img src="./public//logo.png" alt="Prediction Marketplace Logo" width="200">
+</div>
 
-## Getting Started
+A seamless, Tinder-like prediction marketplace built as an L3 chain on top of Arbitrum and Avail DA. PrismX enables a clean tinder-like swipe experience to remove the web3 friction whatsover and make it more gaamified for a social betting marketplace.
 
-First, run the development server:
+## 🤧 Problems Statement
+- Web3 UX is too complicated.
+- Less economic security while using OO to resolve huge markets.
+  - In Polymarket Election Market, UMA OO was used to resolve the market of size >$1B whose token FDV itself is less than $350M (bad bad)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌟 Key Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Swipe-to-Predict Interface**: Tinder-like experience for browsing and interacting with prediction markets
+- **Orbit Rollup powered by Avail DA**: Faster confirmations and less latency for a smooth web2 kinda experience.
+- **Gasless Betting**: Place bets without signing transactions for each interaction, the deployer wallet relays the tx
+- **AI-agent resolution**: AI agents independently expores the online web and produces an asseriton then a consensus bundler agent achieves consensus and thus the market is resolved.
+- **Dispute**: User can dispute the AI resolution.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏗 Technical Architecture
 
-## Learn More
+### Smart Contracts
+- Prediction Market Contract
 
-To learn more about Next.js, take a look at the following resources:
+### AI Resolution System
+- CrewAI
+- OpenAI GPT-4o-mini
+- Information verification from:
+  - Brave Search API
+  - Yahoo Finance 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔮 Future Roadmap
 
-## Deploy on Vercel
+### AI-Powered Market Creation
+- Autonomous Market Generation: AI agents will automatically create prediction markets based on:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Twitter trending topics
+- Google trending searches
+- Viral news stories
+- Emerging social media conversations
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+### Automated Market Management
+
+- Dynamic Market Parameters
+
+- AI-adjusted betting periods based on trend lifecycle
+- Smart liquidity pool management
+- Automated stake size recommendations
+- Risk assessment for different market types
+
+## 📱 Live Deployment
+### Morph Mainnet Contract:
+  - 0x4918238263f3cd815f75370e0114cfd8267dfe59
